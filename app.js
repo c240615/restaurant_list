@@ -8,8 +8,8 @@ app.set("view engine", "handlebars");
 app.use(express.static("public"));
 
 // 首頁目錄
-app.get("/", (req, res) => {
-  res.render("index", { restaurant: restaurantList.results });
+app.get("/", (req, res) => {  
+  res.render("index", { restaurants: restaurantList.results });
 });
 
 // show 頁面
@@ -17,15 +17,23 @@ app.get("/restaurant/:restaurant_id", (req, res) => {
   const restaurant = restaurantList.results.find(
     (restaurant) => restaurant.id === Number(req.params.restaurant_id)
   );
-  res.render("show", { restaurant });
+  res.render("show", { restaurant: restaurant });
 });
 
 // search 結果
-app.get("/search", (req, res) => {  
+app.get("/search", (req, res) => {
+  if (!req.query.keyword) {
+    return res.redirect("/");
+  }
   const restaurants = restaurantList.results.filter((restaurant) => {
-    return restaurant.name.toLowerCase().includes(req.query.keyword.toLowerCase()) || restaurant.category.toLowerCase().includes(req.query.keyword.toLowerCase());
+    return (
+      restaurant.name.toLowerCase().includes(req.query.keyword.toLowerCase()) ||
+      restaurant.category
+        .toLowerCase()
+        .includes(req.query.keyword.toLowerCase())
+    );
   });
-  res.render("index", { restaurants: restaurants, keyword: req.query.keyword });  
+  res.render("index", { restaurants: restaurants, keyword: req.query.keyword });
 });
 
 // start and listen on The Express server
