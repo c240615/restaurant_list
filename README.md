@@ -1,4 +1,5 @@
 # restaurant_list
+![餐廳清單](https://user-images.githubusercontent.com/97713225/187482745-9aa78cc2-b5d0-46af-904e-1ebd5ec2d1ed.PNG)
 ## 介紹
 可利用關鍵字搜尋餐廳名稱及類別，點擊各餐廳可得知相關詳細資訊
 ## 功能
